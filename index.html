@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0056)file:///C:/Users/emanuel.duarte/Downloads/familia_2.html -->
+<!-- saved from url=(0056)file:///C:/Users/emanuel.duarte/Downloads/familia_3.html -->
 <html lang="pt"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Casa em Ordem</title>
-<link href="./Casa em Ordem_files/css2" rel="stylesheet">
+<link href="./index_files/css2" rel="stylesheet">
 <style>
 :root {
   --cream: #faf6f0; --warm: #f0e8d8;
@@ -149,6 +149,14 @@ main { max-width: 980px; margin: 0 auto; padding: 22px 14px 80px; }
 .meal-tag { font-size: 0.63rem; padding: 2px 6px; border-radius: 8px; background: var(--warm); color: var(--terra-dark); font-weight: 600; }
 .meal-del { position: absolute; top: 8px; right: 8px; background: none; border: none; cursor: pointer; color: #ddd; font-size: 0.88rem; transition: color 0.2s; }
 .meal-del:hover { color: var(--terracotta); }
+
+.emoji-btn {
+  width: 34px; height: 34px; border-radius: 8px; border: 1.5px solid var(--warm);
+  background: white; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center;
+  justify-content: center; transition: all 0.15s; flex-shrink: 0;
+}
+.emoji-btn:hover { background: var(--warm); transform: scale(1.15); }
+.emoji-btn.sel { border-color: var(--terracotta); background: #fdf0eb; transform: scale(1.15); }
 
 /* REWARDS */
 .rewards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 11px; }
@@ -479,53 +487,77 @@ main { max-width: 980px; margin: 0 auto; padding: 22px 14px 80px; }
   <div id="tab-list" class="tab-panel">
     <div class="section-header">
       <div><div class="section-title">Receituário</div><div class="section-sub">Refeições favoritas da família</div></div>
-      <button class="btn-primary" onclick="openMealModal()">+ Adicionar</button>
+      <button class="btn-primary" onclick="openMealModal(null)">+ Adicionar</button>
     </div>
     <div class="meal-grid" id="meals-list">
     <div class="meal-card">
-      <button class="meal-del" onclick="delMeal(1)">✕</button>
+      <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px">
+        <button class="btn-icon btn-edit" onclick="openMealModal(1)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delMeal(1)" title="Apagar">🗑️</button>
+      </div>
       <div class="meal-emoji">🐟</div>
       <div class="meal-title">Bacalhau à Brás</div>
       <div class="meal-tags"><span class="meal-tag">peixe</span><span class="meal-tag">tradicional</span></div>
     </div>
     <div class="meal-card">
-      <button class="meal-del" onclick="delMeal(2)">✕</button>
+      <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px">
+        <button class="btn-icon btn-edit" onclick="openMealModal(2)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delMeal(2)" title="Apagar">🗑️</button>
+      </div>
       <div class="meal-emoji">🍗</div>
       <div class="meal-title">Frango Assado</div>
       <div class="meal-tags"><span class="meal-tag">forno</span><span class="meal-tag">família</span></div>
     </div>
     <div class="meal-card">
-      <button class="meal-del" onclick="delMeal(3)">✕</button>
+      <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px">
+        <button class="btn-icon btn-edit" onclick="openMealModal(3)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delMeal(3)" title="Apagar">🗑️</button>
+      </div>
       <div class="meal-emoji">🍝</div>
       <div class="meal-title">Massa à Bolonhesa</div>
       <div class="meal-tags"><span class="meal-tag">massa</span><span class="meal-tag">rápido</span></div>
     </div>
     <div class="meal-card">
-      <button class="meal-del" onclick="delMeal(4)">✕</button>
+      <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px">
+        <button class="btn-icon btn-edit" onclick="openMealModal(4)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delMeal(4)" title="Apagar">🗑️</button>
+      </div>
       <div class="meal-emoji">🥣</div>
       <div class="meal-title">Sopa de Legumes</div>
       <div class="meal-tags"><span class="meal-tag">saudável</span><span class="meal-tag">rápido</span></div>
     </div>
     <div class="meal-card">
-      <button class="meal-del" onclick="delMeal(5)">✕</button>
+      <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px">
+        <button class="btn-icon btn-edit" onclick="openMealModal(5)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delMeal(5)" title="Apagar">🗑️</button>
+      </div>
       <div class="meal-emoji">🍕</div>
       <div class="meal-title">Pizza Caseira</div>
       <div class="meal-tags"><span class="meal-tag">fim de semana</span></div>
     </div>
     <div class="meal-card">
-      <button class="meal-del" onclick="delMeal(6)">✕</button>
+      <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px">
+        <button class="btn-icon btn-edit" onclick="openMealModal(6)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delMeal(6)" title="Apagar">🗑️</button>
+      </div>
       <div class="meal-emoji">🦆</div>
       <div class="meal-title">Arroz de Pato</div>
       <div class="meal-tags"><span class="meal-tag">forno</span><span class="meal-tag">especial</span></div>
     </div>
     <div class="meal-card">
-      <button class="meal-del" onclick="delMeal(7)">✕</button>
+      <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px">
+        <button class="btn-icon btn-edit" onclick="openMealModal(7)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delMeal(7)" title="Apagar">🗑️</button>
+      </div>
       <div class="meal-emoji">🥩</div>
       <div class="meal-title">Cozido à Portuguesa</div>
       <div class="meal-tags"><span class="meal-tag">tradicional</span></div>
     </div>
     <div class="meal-card">
-      <button class="meal-del" onclick="delMeal(8)">✕</button>
+      <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px">
+        <button class="btn-icon btn-edit" onclick="openMealModal(8)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delMeal(8)" title="Apagar">🗑️</button>
+      </div>
       <div class="meal-emoji">🍔</div>
       <div class="meal-title">Hamburguers Caseiros</div>
       <div class="meal-tags"><span class="meal-tag">rápido</span><span class="meal-tag">crianças</span></div>
@@ -818,14 +850,19 @@ main { max-width: 980px; margin: 0 auto; padding: 22px 14px 80px; }
 
 <!-- MEAL -->
 <div class="modal-overlay" id="modal-meal">
-  <div class="modal">
-    <h3>🍽️ Nova Refeição</h3>
+  <div class="modal" style="max-width:460px">
+    <h3 id="mml-title">🍽️ Nova Refeição</h3>
+    <input type="hidden" id="mml-id">
     <div class="form-group"><label>Nome</label><input type="text" id="mml-name" placeholder="Ex: Bacalhau à Brás"></div>
-    <div class="form-group"><label>Emoji</label><input type="text" id="mml-emoji" placeholder="🍲" maxlength="2"></div>
+    <div class="form-group">
+      <label>Emoji <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#bbb">— escreve ou clica num</span></label>
+      <input type="text" id="mml-emoji" placeholder="🍲" maxlength="2" style="width:70px;display:inline-block;text-align:center;font-size:1.3rem">
+      <div id="emoji-grid" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:9px;max-height:150px;overflow-y:auto;padding:2px"></div>
+    </div>
     <div class="form-group"><label>Categorias (separadas por vírgula)</label><input type="text" id="mml-tags" placeholder="peixe, forno, rápido"></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal(&#39;modal-meal&#39;)">Cancelar</button>
-      <button class="btn-save" onclick="saveMeal()">Adicionar</button>
+      <button class="btn-save" onclick="saveMeal()">Guardar</button>
     </div>
   </div>
 </div>
@@ -1103,6 +1140,30 @@ function saveTask() {
 }
 
 // ─── MEALS ───
+const FOOD_EMOJIS = [
+  '🍗','🍖','🥩','🥚','🍳','🥓','🌭','🍔','🌮','🌯',
+  '🥙','🧆','🥗','🍝','🍜','🍲','🍛','🍣','🍱','🍤',
+  '🐟','🦐','🦑','🦞','🦀','🥟','🍚','🍙','🍘','🧇',
+  '🥞','🧈','🍞','🥖','🥐','🫓','🧀','🥨','🥯','🫕',
+  '🥦','🥕','🧅','🧄','🌽','🍅','🥑','🫑','🥬','🫛',
+  '🍕','🫔','🥘','🍢','🍡','🍠','🎂','🍰','🧁','🍩',
+  '🍪','🍫','🍬','🍭','🍮','🍯','🍦','🍧','🍨','🍡',
+  '🥣','🥧','🍵','☕','🧃','🥛','🍺','🍷','🥂','🧋',
+];
+
+function renderEmojiPicker(selected) {
+  const grid = document.getElementById('emoji-grid');
+  if (!grid) return;
+  grid.innerHTML = FOOD_EMOJIS.map(e =>
+    `<button type="button" class="emoji-btn ${e===selected?'sel':''}" onclick="pickEmoji('${e}',this)">${e}</button>`
+  ).join('');
+}
+
+function pickEmoji(e, btn) {
+  document.getElementById('mml-emoji').value = e;
+  document.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
 function renderWeek() {
   const g = document.getElementById('week-grid'); if (!g) return;
   const days = [{k:'seg',l:'Segunda'},{k:'ter',l:'Terça'},{k:'qua',l:'Quarta'},{k:'qui',l:'Quinta'},{k:'sex',l:'Sexta'},{k:'sab',l:'Sábado'},{k:'dom',l:'Domingo'}];
@@ -1118,22 +1179,40 @@ function renderMeals() {
   if (!S.meals.length) { el.innerHTML=`<div class="empty-state"><div class="ei">🍽️</div><p>Adiciona a primeira refeição!</p></div>`; return; }
   el.innerHTML = S.meals.map(m=>`
     <div class="meal-card">
-      <button class="meal-del" onclick="delMeal(${m.id})">✕</button>
+      <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px">
+        <button class="btn-icon btn-edit" onclick="openMealModal(${m.id})" title="Editar">✏️</button>
+        <button class="btn-icon btn-del"  onclick="delMeal(${m.id})" title="Apagar">🗑️</button>
+      </div>
       <div class="meal-emoji">${m.emoji||'🍽️'}</div>
       <div class="meal-title">${m.name}</div>
       <div class="meal-tags">${(m.tags||[]).map(t=>`<span class="meal-tag">${t}</span>`).join('')}</div>
     </div>`).join('');
 }
-function openMealModal() { openModal('modal-meal'); }
+function openMealModal(id) {
+  const m = id ? S.meals.find(x=>x.id===id) : null;
+  document.getElementById('mml-title').textContent = m ? '✏️ Editar Refeição' : '🍽️ Nova Refeição';
+  document.getElementById('mml-id').value    = id||'';
+  document.getElementById('mml-name').value  = m ? m.name : '';
+  document.getElementById('mml-emoji').value = m ? m.emoji : '';
+  document.getElementById('mml-tags').value  = m ? (m.tags||[]).join(', ') : '';
+  renderEmojiPicker(m ? m.emoji : '');
+  openModal('modal-meal');
+}
 function saveMeal() {
   const name = document.getElementById('mml-name').value.trim();
   if (!name) { toast('Indica o nome!'); return; }
+  const eid  = document.getElementById('mml-id').value;
   const emoji = document.getElementById('mml-emoji').value||'🍽️';
   const tags  = document.getElementById('mml-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
-  S.meals.push({id:nid(),name,emoji,tags});
+  if (eid) {
+    const m = S.meals.find(x=>x.id===parseInt(eid));
+    if (m) Object.assign(m, {name, emoji, tags});
+    toast('🍽️ Refeição atualizada!');
+  } else {
+    S.meals.push({id:nid(),name,emoji,tags});
+    toast('🍽️ Refeição adicionada!');
+  }
   save(); closeModal('modal-meal'); renderMeals();
-  ['mml-name','mml-emoji','mml-tags'].forEach(id=>document.getElementById(id).value='');
-  toast('🍽️ Refeição adicionada!');
 }
 function delMeal(id) {
   confirmAction('Remover refeição?','Esta refeição será removida.',()=>{

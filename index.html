@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0056)file:///C:/Users/emanuel.duarte/Downloads/familia_6.html -->
+<!-- saved from url=(0056)file:///C:/Users/emanuel.duarte/Downloads/familia_9.html -->
 <html lang="pt"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1762,6 +1762,158 @@ function confirmSugDone() {
 // ─── INIT ───
 mtToggleReward();
 renderAll();
+</script>
+
+<!-- FOOTER -->
+<footer id="app-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">Casa em <span>Ordem</span></span>
+      <span class="footer-version">v1.0.0</span>
+    </div>
+    <div class="footer-center">
+      © <span id="footer-year">2026</span> Casa em Ordem. Todos os direitos reservados.
+    </div>
+    <div class="footer-links">
+      <button onclick="openModal(&#39;modal-terms&#39;)">Termos e Condições</button>
+      <span>·</span>
+      <button onclick="openModal(&#39;modal-privacy&#39;)">Privacidade</button>
+      <span>·</span>
+      <button onclick="openModal(&#39;modal-about&#39;)">Sobre</button>
+    </div>
+  </div>
+</footer>
+
+<style>
+#app-footer {
+  background: var(--midnight);
+  color: #aaa;
+  padding: 18px 20px;
+  margin-top: 0;
+  font-size: 0.78rem;
+}
+.footer-inner {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.footer-brand { display: flex; align-items: center; gap: 8px; }
+.footer-logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 0.95rem; color: white; }
+.footer-logo span { color: var(--terracotta); }
+.footer-version { background: rgba(200,96,58,0.2); color: var(--terra-light); padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; }
+.footer-center { color: #888; font-size: 0.75rem; text-align: center; flex: 1; }
+.footer-links { display: flex; gap: 8px; align-items: center; }
+.footer-links button { background: none; border: none; color: #888; cursor: pointer; font-size: 0.75rem; font-family: 'DM Sans', sans-serif; transition: color 0.2s; padding: 0; }
+.footer-links button:hover { color: var(--terra-light); }
+.footer-links span { color: #555; }
+@media (max-width: 600px) { .footer-inner { flex-direction: column; text-align: center; gap: 8px; } .footer-center { flex: none; } }
+</style>
+
+<!-- TERMS MODAL -->
+<div class="modal-overlay" id="modal-terms">
+  <div class="modal" style="max-width:560px;max-height:85vh;overflow-y:auto">
+    <h3>📋 Termos e Condições</h3>
+    <div style="font-size:0.84rem;color:var(--muted);line-height:1.7">
+      <p style="margin-bottom:12px"><strong style="color:var(--ink)">Última atualização:</strong> Janeiro de 2025</p>
+
+      <p style="font-weight:700;color:var(--ink);margin-bottom:4px">1. Aceitação dos Termos</p>
+      <p style="margin-bottom:12px">Ao utilizar a aplicação <strong>Casa em Ordem</strong>, o utilizador aceita os presentes Termos e Condições de utilização. Caso não concorde com algum dos termos, deverá cessar imediatamente a utilização da aplicação.</p>
+
+      <p style="font-weight:700;color:var(--ink);margin-bottom:4px">2. Descrição do Serviço</p>
+      <p style="margin-bottom:12px">A Casa em Ordem é uma aplicação de gestão familiar que permite a organização de tarefas domésticas, planeamento de refeições, gestão de recompensas e registo de sugestões e objetivos familiares. A aplicação destina-se a uso pessoal e familiar.</p>
+
+      <p style="font-weight:700;color:var(--ink);margin-bottom:4px">3. Licença de Utilização</p>
+      <p style="margin-bottom:12px">É concedida ao utilizador uma licença pessoal, não exclusiva e intransmissível para utilizar esta aplicação. É expressamente proibido copiar, distribuir, modificar, vender ou sublicenciar o software sem autorização prévia e escrita do titular dos direitos.</p>
+
+      <p style="font-weight:700;color:var(--ink);margin-bottom:4px">4. Dados e Privacidade</p>
+      <p style="margin-bottom:12px">Todos os dados inseridos na aplicação são armazenados localmente no dispositivo do utilizador, através do mecanismo de localStorage do browser. A Casa em Ordem não recolhe, transmite nem armazena dados pessoais em servidores externos.</p>
+
+      <p style="font-weight:700;color:var(--ink);margin-bottom:4px">5. Limitação de Responsabilidade</p>
+      <p style="margin-bottom:12px">A Casa em Ordem é disponibilizada "tal como está". O titular não se responsabiliza por eventuais perdas de dados, falhas técnicas ou danos resultantes da utilização da aplicação.</p>
+
+      <p style="font-weight:700;color:var(--ink);margin-bottom:4px">6. Propriedade Intelectual</p>
+      <p style="margin-bottom:12px">Todo o conteúdo, design, código e conceito da aplicação Casa em Ordem são propriedade exclusiva do seu titular. Todos os direitos reservados.</p>
+
+      <p style="font-weight:700;color:var(--ink);margin-bottom:4px">7. Alterações aos Termos</p>
+      <p style="margin-bottom:12px">O titular reserva-se o direito de atualizar estes Termos e Condições a qualquer momento, sendo as alterações comunicadas através da própria aplicação.</p>
+
+      <p style="font-weight:700;color:var(--ink);margin-bottom:4px">8. Lei Aplicável</p>
+      <p>Os presentes Termos regem-se pela legislação portuguesa. Qualquer litígio será submetido aos tribunais competentes da República Portuguesa.</p>
+    </div>
+    <div class="modal-actions" style="margin-top:20px">
+      <button class="btn-save" onclick="closeModal(&#39;modal-terms&#39;)">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRIVACY MODAL -->
+<div class="modal-overlay" id="modal-privacy">
+  <div class="modal" style="max-width:560px;max-height:85vh;overflow-y:auto">
+    <h3>🔒 Política de Privacidade</h3>
+    <div style="font-size:0.84rem;color:var(--muted);line-height:1.7">
+      <p style="margin-bottom:12px"><strong style="color:var(--ink)">Última atualização:</strong> Janeiro de 2025</p>
+
+      <p style="font-weight:700;color:var(--ink);margin-bottom:4px">Dados recolhidos</p>
+      <p style="margin-bottom:12px">A Casa em Ordem <strong>não recolhe qualquer dado pessoal</strong>. Toda a informação introduzida (nomes, tarefas, refeições, pontos) fica guardada exclusivamente no browser do dispositivo utilizado, através do localStorage.</p>
+
+      <p style="font-weight:700;color:var(--ink);margin-bottom:4px">Armazenamento local</p>
+      <p style="margin-bottom:12px">Os dados são guardados apenas no dispositivo do utilizador. Não existe qualquer sincronização com servidores externos, nem partilha com terceiros.</p>
+
+      <p style="font-weight:700;color:var(--ink);margin-bottom:4px">Cookies</p>
+      <p style="margin-bottom:12px">A aplicação não utiliza cookies de rastreamento. Utiliza apenas o localStorage do browser para persistir as configurações da família.</p>
+
+      <p style="font-weight:700;color:var(--ink);margin-bottom:4px">Direitos do utilizador</p>
+      <p style="margin-bottom:12px">O utilizador pode eliminar todos os dados a qualquer momento através da opção "Reiniciar dados" em Configurações, ou limpando o localStorage do browser.</p>
+
+      <p style="font-weight:700;color:var(--ink);margin-bottom:4px">Contacto</p>
+      <p>Para questões relacionadas com privacidade, contacte o suporte através dos canais disponibilizados na página oficial da aplicação.</p>
+    </div>
+    <div class="modal-actions" style="margin-top:20px">
+      <button class="btn-save" onclick="closeModal(&#39;modal-privacy&#39;)">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT MODAL -->
+<div class="modal-overlay" id="modal-about">
+  <div class="modal" style="max-width:460px">
+    <h3>✨ Sobre a App</h3>
+    <div style="text-align:center;padding:10px 0 20px">
+      <div style="font-family:&#39;Fraunces&#39;,serif;font-size:2rem;font-weight:800;color:var(--midnight);margin-bottom:4px">Casa em <span style="color:var(--terracotta)">Ordem</span></div>
+      <div style="display:inline-block;background:rgba(200,96,58,0.12);color:var(--terracotta);padding:3px 12px;border-radius:20px;font-size:0.78rem;font-weight:700;margin-bottom:16px">Versão 1.0.0</div>
+      <p style="font-size:0.86rem;color:var(--muted);line-height:1.7;margin-bottom:16px">A <strong style="color:var(--ink)">Casa em Ordem</strong> é uma aplicação de gestão familiar pensada para simplificar o dia a dia em casa — das tarefas às refeições, dos objetivos às recompensas.</p>
+      <div style="background:var(--warm);border-radius:14px;padding:16px;margin-bottom:16px;text-align:left">
+        <div style="font-size:0.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">Funcionalidades</div>
+        <div style="font-size:0.83rem;color:var(--ink);line-height:2">
+          ✅ Gestão de tarefas fixas e extras<br>
+          🍽️ Plano semanal de refeições<br>
+          ⭐ Sistema de pontos e recompensas<br>
+          💡 Sugestões e objetivos familiares<br>
+          🏆 Histórico de momentos realizados<br>
+          ⚙️ Totalmente configurável por família
+        </div>
+      </div>
+      <div style="font-size:0.75rem;color:#bbb">
+        © <span id="about-year">2026</span> Casa em Ordem<br>Todos os direitos reservados
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-save" onclick="closeModal(&#39;modal-about&#39;)">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Set year in footer and about
+  const y = new Date().getFullYear();
+  const fyEl = document.getElementById('footer-year');
+  const ayEl = document.getElementById('about-year');
+  if (fyEl) fyEl.textContent = y;
+  if (ayEl) ayEl.textContent = y;
 </script>
 
 

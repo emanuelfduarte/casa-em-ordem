@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)file:///C:/Users/emanuel.duarte/Downloads/familia_2.html -->
+<html lang="pt"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa em Ordem</title>
+<link href="./Casa em Ordem_files/css2" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf6f0; --warm: #f0e8d8;
+  --terracotta: #c8603a; --terra-light: #e8855f; --terra-dark: #9e4a2c;
+  --sage: #6b8f71; --midnight: #1a1a2e; --ink: #2d2d3a; --muted: #7a7a8c;
+  --gold: #d4a843; --gold-light: #f0c96a;
+  --radius: 16px;
+  --shadow: 0 4px 24px rgba(26,26,46,0.10);
+  --shadow-lg: 0 12px 48px rgba(26,26,46,0.16);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; }
+
+header {
+  background: var(--midnight); color: var(--cream); padding: 0 18px;
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 58px; box-shadow: var(--shadow-lg); gap: 10px;
+}
+.logo { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 800; white-space: nowrap; flex-shrink: 0; }
+.logo span { color: var(--terracotta); }
+nav { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+nav::-webkit-scrollbar { display: none; }
+nav button {
+  background: none; border: none; color: #aaa; cursor: pointer;
+  padding: 7px 10px; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500;
+  transition: all 0.2s; white-space: nowrap;
+}
+nav button.active, nav button:hover { background: rgba(200,96,58,0.2); color: var(--terra-light); }
+
+main { max-width: 980px; margin: 0 auto; padding: 22px 14px 80px; }
+.page { display: none; }
+.page.active { display: block; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
+
+.section-title { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 800; color: var(--midnight); margin-bottom: 4px; }
+.section-sub { color: var(--muted); font-size: 0.86rem; margin-bottom: 20px; }
+.section-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; background: var(--terracotta); color: white;
+  border: none; border-radius: 10px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.83rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+}
+.btn-primary:hover { background: var(--terra-dark); transform: translateY(-1px); }
+.btn-outline { background: white; color: var(--terracotta); border: 1.5px solid var(--terracotta); }
+.btn-outline:hover { background: var(--warm); transform: translateY(-1px); }
+.btn-icon {
+  width: 28px; height: 28px; border-radius: 7px; border: none;
+  cursor: pointer; font-size: 0.82rem; display: inline-flex; align-items: center; justify-content: center;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.btn-edit { background: var(--warm); color: var(--terra-dark); }
+.btn-edit:hover { background: var(--terracotta); color: white; }
+.btn-del { background: #fde8e8; color: #c0392b; }
+.btn-del:hover { background: #c0392b; color: white; }
+
+/* TODAY BANNER */
+.today-banner {
+  background: linear-gradient(135deg, var(--midnight) 0%, #2a2a5a 100%);
+  color: white; border-radius: var(--radius);
+  padding: 18px 22px; margin-bottom: 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+}
+.today-date { font-family: 'Fraunces', serif; font-size: 0.9rem; font-weight: 300; font-style: italic; opacity: 0.72; }
+.today-family { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 800; margin-top: 2px; }
+.today-meal-box { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 11px 16px; min-width: 150px; }
+.today-meal-box .lbl { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.65; margin-bottom: 3px; }
+.today-meal-box strong { font-family: 'Fraunces', serif; font-size: 0.97rem; display: block; }
+
+/* STATS */
+.stats-bar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+.stat-box { background: white; border-radius: 12px; padding: 12px 16px; box-shadow: var(--shadow); flex: 1; min-width: 80px; text-align: center; }
+.stat-number { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 800; color: var(--terracotta); line-height: 1; margin-bottom: 3px; }
+.stat-label { font-size: 0.7rem; color: var(--muted); font-weight: 500; }
+
+/* FAMILY */
+.family-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 11px; margin-bottom: 22px; }
+.member-card {
+  background: white; border-radius: var(--radius); padding: 16px 12px;
+  box-shadow: var(--shadow); text-align: center; border-top: 4px solid #ccc;
+  transition: transform 0.2s; cursor: pointer;
+}
+.member-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.member-avatar { width: 46px; height: 46px; border-radius: 50%; margin: 0 auto 9px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; color: white; }
+.member-name { font-family: 'Fraunces', serif; font-weight: 600; font-size: 0.93rem; margin-bottom: 2px; }
+.member-role-lbl { font-size: 0.7rem; color: var(--muted); margin-bottom: 7px; }
+.member-points { display: inline-flex; align-items: center; gap: 3px; background: var(--warm); padding: 3px 9px; border-radius: 20px; font-size: 0.76rem; font-weight: 700; color: var(--terra-dark); }
+.prog-bar { height: 5px; background: var(--warm); border-radius: 3px; overflow: hidden; margin-top: 6px; }
+.prog-fill { height: 100%; border-radius: 3px; background: var(--sage); transition: width 0.5s ease; }
+.prog-text { font-size: 0.66rem; color: var(--muted); margin-top: 2px; }
+
+/* TASKS */
+.task-filters { display: flex; gap: 5px; margin-bottom: 14px; flex-wrap: wrap; }
+.filter-btn { padding: 5px 12px; border-radius: 20px; border: 1.5px solid var(--warm); background: white; font-size: 0.78rem; font-weight: 500; cursor: pointer; color: var(--muted); transition: all 0.2s; }
+.filter-btn.active { background: var(--terracotta); border-color: var(--terracotta); color: white; }
+
+.task-item {
+  display: flex; align-items: center; gap: 11px;
+  padding: 12px 15px; background: white; border-radius: 12px; margin-bottom: 7px;
+  box-shadow: 0 2px 8px rgba(26,26,46,0.06); transition: all 0.2s; border-left: 3px solid transparent;
+}
+.task-item:hover { box-shadow: var(--shadow); }
+.task-item.done { opacity: 0.5; background: var(--warm); }
+.task-item.extra { border-left-color: var(--gold); }
+.task-check { width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--warm); background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; font-size: 0.82rem; }
+.task-check.checked { background: var(--sage); border-color: var(--sage); color: white; }
+.task-info { flex: 1; min-width: 0; }
+.task-name-txt { font-size: 0.88rem; font-weight: 500; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.task-meta { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
+.task-person-tag { font-size: 0.7rem; padding: 2px 7px; border-radius: 10px; font-weight: 600; color: white; }
+.task-badge { font-size: 0.68rem; padding: 2px 7px; border-radius: 10px; background: var(--warm); color: var(--terra-dark); font-weight: 600; }
+.task-badge.xbadge { background: #fff3d0; color: #8a6200; }
+.task-reward-pts { font-size: 0.8rem; font-weight: 700; color: var(--gold); white-space: nowrap; }
+.task-acts { display: flex; gap: 4px; }
+
+/* MEALS */
+.page-tabs { display: flex; gap: 3px; margin-bottom: 18px; border-bottom: 2px solid var(--warm); }
+.page-tab { padding: 7px 14px; border: none; background: none; font-family: 'DM Sans', sans-serif; font-size: 0.84rem; font-weight: 600; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+.page-tab.active { color: var(--terracotta); border-bottom-color: var(--terracotta); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; margin-bottom: 20px; }
+@media (max-width: 600px) { .week-grid { grid-template-columns: repeat(2, 1fr); } }
+.day-card { background: white; border-radius: 12px; padding: 11px; box-shadow: var(--shadow); min-height: 85px; }
+.day-lbl { font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 6px; }
+.day-meal-txt { font-family: 'Fraunces', serif; font-size: 0.82rem; font-weight: 600; color: var(--midnight); line-height: 1.3; margin-bottom: 7px; }
+.day-empty { font-size: 0.74rem; color: #ccc; font-style: italic; margin-bottom: 7px; }
+.btn-day { font-size: 0.67rem; padding: 3px 7px; background: var(--warm); border: none; border-radius: 6px; cursor: pointer; color: var(--terra-dark); font-weight: 600; width: 100%; transition: background 0.2s; }
+.btn-day:hover { background: var(--terracotta); color: white; }
+
+.meal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 11px; }
+.meal-card { background: white; border-radius: 14px; padding: 15px; box-shadow: var(--shadow); transition: transform 0.2s; position: relative; }
+.meal-card:hover { transform: translateY(-2px); }
+.meal-emoji { font-size: 1.6rem; margin-bottom: 6px; }
+.meal-title { font-family: 'Fraunces', serif; font-weight: 600; font-size: 0.9rem; margin-bottom: 5px; color: var(--midnight); }
+.meal-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.meal-tag { font-size: 0.63rem; padding: 2px 6px; border-radius: 8px; background: var(--warm); color: var(--terra-dark); font-weight: 600; }
+.meal-del { position: absolute; top: 8px; right: 8px; background: none; border: none; cursor: pointer; color: #ddd; font-size: 0.88rem; transition: color 0.2s; }
+.meal-del:hover { color: var(--terracotta); }
+
+/* REWARDS */
+.rewards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 11px; }
+.reward-card { background: white; border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 13px; }
+.reward-icon { font-size: 1.8rem; flex-shrink: 0; }
+.reward-info { flex: 1; }
+.reward-name { font-family: 'Fraunces', serif; font-weight: 700; font-size: 0.93rem; margin-bottom: 2px; }
+.reward-desc { font-size: 0.73rem; color: var(--muted); margin-bottom: 6px; }
+.reward-cost { display: inline-flex; align-items: center; gap: 3px; background: #fff3d0; padding: 3px 9px; border-radius: 10px; font-size: 0.76rem; font-weight: 700; color: #8a6200; }
+.reward-acts { display: flex; gap: 4px; margin-top: 7px; }
+
+/* SETTINGS */
+.settings-section { margin-bottom: 28px; }
+.settings-section-title { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 700; color: var(--midnight); margin-bottom: 11px; padding-bottom: 7px; border-bottom: 2px solid var(--warm); display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.settings-row { display: flex; align-items: center; gap: 11px; padding: 12px 15px; background: white; border-radius: 12px; margin-bottom: 7px; box-shadow: 0 2px 8px rgba(26,26,46,0.06); }
+.settings-avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; font-weight: 800; color: white; flex-shrink: 0; }
+.settings-info { flex: 1; }
+.settings-name { font-weight: 600; font-size: 0.9rem; }
+.settings-detail { font-size: 0.73rem; color: var(--muted); margin-top: 1px; }
+.settings-acts { display: flex; gap: 4px; }
+
+.family-name-row { display: flex; gap: 10px; align-items: center; margin-bottom: 18px; }
+.family-name-row input { flex: 1; padding: 9px 13px; border: 1.5px solid var(--warm); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600; outline: none; }
+.family-name-row input:focus { border-color: var(--terracotta); }
+
+.color-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.c-swatch { width: 24px; height: 24px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: all 0.15s; }
+.c-swatch.sel { border-color: var(--midnight); transform: scale(1.25); }
+
+/* MODAL */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(26,26,46,0.55); z-index: 200; align-items: center; justify-content: center; padding: 14px; }
+.modal-overlay.open { display: flex; }
+.modal { background: white; border-radius: 20px; padding: 24px; width: 100%; max-width: 410px; box-shadow: var(--shadow-lg); animation: sUp 0.22s ease; }
+@keyframes sUp { from { transform:translateY(26px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+.modal h3 { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 800; margin-bottom: 16px; color: var(--midnight); }
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+.form-group input, .form-group select { width: 100%; padding: 9px 12px; border: 1.5px solid var(--warm); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--ink); outline: none; transition: border-color 0.2s; background: white; }
+.form-group input:focus, .form-group select:focus { border-color: var(--terracotta); }
+.modal-actions { display: flex; gap: 8px; margin-top: 16px; }
+.btn-cancel { flex: 1; padding: 9px; border: 1.5px solid var(--warm); background: white; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-weight: 600; cursor: pointer; color: var(--muted); }
+.btn-save { flex: 2; padding: 9px; background: var(--terracotta); color: white; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+.btn-save:hover { background: var(--terra-dark); }
+.btn-save.danger { background: #c0392b; }
+.btn-save.danger:hover { background: #96281b; }
+
+.confirm-msg { color: var(--muted); font-size: 0.88rem; margin-top: -8px; margin-bottom: 4px; line-height: 1.5; }
+
+.empty-state { text-align: center; padding: 44px 20px; color: var(--muted); }
+.empty-state .ei { font-size: 2.8rem; margin-bottom: 10px; }
+
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--midnight); color: white; padding: 10px 20px; border-radius: 50px; font-size: 0.84rem; font-weight: 600; z-index: 300; transition: transform 0.3s ease; white-space: nowrap; }
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 480px) { nav button { padding: 6px 8px; font-size: 0.72rem; } .logo { font-size: 0.98rem; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Casa em <span id="hdr-family">ALLCE</span></div>
+  <nav>
+    <button class="active" onclick="showPage(&#39;home&#39;,this)">🏠 Início</button>
+    <button onclick="showPage(&#39;tasks&#39;,this)">✅ Tarefas</button>
+    <button onclick="showPage(&#39;meals&#39;,this)">🍽️ Refeições</button>
+    <button onclick="showPage(&#39;rewards&#39;,this)">⭐ Recompensas</button>
+    <button onclick="showPage(&#39;settings&#39;,this)">⚙️ Config</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="today-banner">
+    <div>
+      <div class="today-date" id="today-date">domingo, 19 de abril de 2026</div>
+      <div class="today-family" id="today-greeting">Boa tarde, família ALLCE! 👋</div>
+    </div>
+    <div class="today-meal-box">
+      <div class="lbl">Jantar de hoje</div>
+      <strong id="today-dinner">— sem plano —</strong>
+    </div>
+  </div>
+  <div class="stats-bar">
+    <div class="stat-box"><div class="stat-number" id="s-done">0</div><div class="stat-label">Feitas hoje</div></div>
+    <div class="stat-box"><div class="stat-number" id="s-pend">9</div><div class="stat-label">Por fazer</div></div>
+    <div class="stat-box"><div class="stat-number" id="s-pts">0</div><div class="stat-label">Pontos totais</div></div>
+  </div>
+  <div class="section-title">A Família</div>
+  <div class="section-sub">Clica num membro para ver as suas tarefas</div>
+  <div class="family-grid" id="family-grid"><div class="member-card" style="border-top-color:#2c3e50" onclick="jumpToMember(&#39;Emanuel&#39;)">
+      <div class="member-avatar" style="background:#2c3e50">👨</div>
+      <div class="member-name">Emanuel</div>
+      <div class="member-role-lbl">Adulto</div>
+      
+    </div><div class="member-card" style="border-top-color:#8e44ad" onclick="jumpToMember(&#39;Carina&#39;)">
+      <div class="member-avatar" style="background:#8e44ad">👩</div>
+      <div class="member-name">Carina</div>
+      <div class="member-role-lbl">Adulto</div>
+      
+    </div><div class="member-card" style="border-top-color:#c8603a" onclick="jumpToMember(&#39;Alicia&#39;)">
+      <div class="member-avatar" style="background:#c8603a">Al</div>
+      <div class="member-name">Alicia</div>
+      <div class="member-role-lbl">17 anos</div>
+      
+        <div class="member-points">⭐ 0 pts</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:0%;background:#c8603a"></div></div>
+        <div class="prog-text">0/3 tarefas</div>
+      
+    </div><div class="member-card" style="border-top-color:#6b8f71" onclick="jumpToMember(&#39;Lucas&#39;)">
+      <div class="member-avatar" style="background:#6b8f71">Lu</div>
+      <div class="member-name">Lucas</div>
+      <div class="member-role-lbl">13 anos</div>
+      
+        <div class="member-points">⭐ 0 pts</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:0%;background:#6b8f71"></div></div>
+        <div class="prog-text">0/3 tarefas</div>
+      
+    </div><div class="member-card" style="border-top-color:#d4a843" onclick="jumpToMember(&#39;Lucia&#39;)">
+      <div class="member-avatar" style="background:#d4a843">Lc</div>
+      <div class="member-name">Lucia</div>
+      <div class="member-role-lbl">9 anos</div>
+      
+        <div class="member-points">⭐ 0 pts</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:0%;background:#d4a843"></div></div>
+        <div class="prog-text">0/3 tarefas</div>
+      
+    </div></div>
+</div>
+
+<!-- TASKS -->
+<div id="page-tasks" class="page">
+  <div class="section-header">
+    <div><div class="section-title">Tarefas</div><div class="section-sub">Tarefas fixas e extras com recompensas</div></div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap">
+      <button class="btn-primary btn-outline" onclick="openTaskModal(null,&#39;fixed&#39;)">+ Fixa</button>
+      <button class="btn-primary" onclick="openTaskModal(null,&#39;extra&#39;)">✨ Extra</button>
+    </div>
+  </div>
+  <div class="task-filters" id="task-filters"><button class="filter-btn active" onclick="setFilter(&#39;all&#39;,this)">Todas</button><button class="filter-btn " onclick="setFilter(&#39;fixed&#39;,this)">🏠 Fixas</button><button class="filter-btn " onclick="setFilter(&#39;extra&#39;,this)">✨ Extras</button><button class="filter-btn " onclick="setFilter(&#39;Alicia&#39;,this)">Alicia</button><button class="filter-btn " onclick="setFilter(&#39;Lucas&#39;,this)">Lucas</button><button class="filter-btn " onclick="setFilter(&#39;Lucia&#39;,this)">Lucia</button></div>
+  <div id="tasks-list">
+    <div class="task-item  ">
+      <div class="task-check " onclick="toggleTask(1)"></div>
+      <div class="task-info">
+        <div class="task-name-txt" style="">Pôr a mesa</div>
+        <div class="task-meta">
+          <span class="task-person-tag" style="background:#d4a843">Lucia</span>
+          <span class="task-badge ">🏠 Fixa</span>
+        </div>
+      </div>
+      
+      <div class="task-acts">
+        <button class="btn-icon btn-edit" onclick="openTaskModal(1,&#39;fixed&#39;)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delTask(1)" title="Apagar">🗑️</button>
+      </div>
+    </div>
+    <div class="task-item  ">
+      <div class="task-check " onclick="toggleTask(2)"></div>
+      <div class="task-info">
+        <div class="task-name-txt" style="">Lavar a loiça</div>
+        <div class="task-meta">
+          <span class="task-person-tag" style="background:#6b8f71">Lucas</span>
+          <span class="task-badge ">🏠 Fixa</span>
+        </div>
+      </div>
+      
+      <div class="task-acts">
+        <button class="btn-icon btn-edit" onclick="openTaskModal(2,&#39;fixed&#39;)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delTask(2)" title="Apagar">🗑️</button>
+      </div>
+    </div>
+    <div class="task-item  ">
+      <div class="task-check " onclick="toggleTask(3)"></div>
+      <div class="task-info">
+        <div class="task-name-txt" style="">Tirar o lixo</div>
+        <div class="task-meta">
+          <span class="task-person-tag" style="background:#c8603a">Alicia</span>
+          <span class="task-badge ">🏠 Fixa</span>
+        </div>
+      </div>
+      
+      <div class="task-acts">
+        <button class="btn-icon btn-edit" onclick="openTaskModal(3,&#39;fixed&#39;)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delTask(3)" title="Apagar">🗑️</button>
+      </div>
+    </div>
+    <div class="task-item  ">
+      <div class="task-check " onclick="toggleTask(4)"></div>
+      <div class="task-info">
+        <div class="task-name-txt" style="">Arrumar o quarto</div>
+        <div class="task-meta">
+          <span class="task-person-tag" style="background:#d4a843">Lucia</span>
+          <span class="task-badge ">🏠 Fixa</span>
+        </div>
+      </div>
+      
+      <div class="task-acts">
+        <button class="btn-icon btn-edit" onclick="openTaskModal(4,&#39;fixed&#39;)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delTask(4)" title="Apagar">🗑️</button>
+      </div>
+    </div>
+    <div class="task-item  ">
+      <div class="task-check " onclick="toggleTask(5)"></div>
+      <div class="task-info">
+        <div class="task-name-txt" style="">Arrumar o quarto</div>
+        <div class="task-meta">
+          <span class="task-person-tag" style="background:#6b8f71">Lucas</span>
+          <span class="task-badge ">🏠 Fixa</span>
+        </div>
+      </div>
+      
+      <div class="task-acts">
+        <button class="btn-icon btn-edit" onclick="openTaskModal(5,&#39;fixed&#39;)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delTask(5)" title="Apagar">🗑️</button>
+      </div>
+    </div>
+    <div class="task-item  ">
+      <div class="task-check " onclick="toggleTask(6)"></div>
+      <div class="task-info">
+        <div class="task-name-txt" style="">Arrumar o quarto</div>
+        <div class="task-meta">
+          <span class="task-person-tag" style="background:#c8603a">Alicia</span>
+          <span class="task-badge ">🏠 Fixa</span>
+        </div>
+      </div>
+      
+      <div class="task-acts">
+        <button class="btn-icon btn-edit" onclick="openTaskModal(6,&#39;fixed&#39;)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delTask(6)" title="Apagar">🗑️</button>
+      </div>
+    </div>
+    <div class="task-item  extra">
+      <div class="task-check " onclick="toggleTask(7)"></div>
+      <div class="task-info">
+        <div class="task-name-txt" style="">Aspirar a sala</div>
+        <div class="task-meta">
+          <span class="task-person-tag" style="background:#6b8f71">Lucas</span>
+          <span class="task-badge xbadge">✨ Extra</span>
+        </div>
+      </div>
+      <div style="text-align:right;margin-right:3px"><div class="task-reward-pts">⭐ 15 pts</div><div style="font-size:0.66rem;color:var(--muted)">💶</div></div>
+      <div class="task-acts">
+        <button class="btn-icon btn-edit" onclick="openTaskModal(7,&#39;extra&#39;)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delTask(7)" title="Apagar">🗑️</button>
+      </div>
+    </div>
+    <div class="task-item  extra">
+      <div class="task-check " onclick="toggleTask(8)"></div>
+      <div class="task-info">
+        <div class="task-name-txt" style="">Lavar o carro</div>
+        <div class="task-meta">
+          <span class="task-person-tag" style="background:#c8603a">Alicia</span>
+          <span class="task-badge xbadge">✨ Extra</span>
+        </div>
+      </div>
+      <div style="text-align:right;margin-right:3px"><div class="task-reward-pts">⭐ 25 pts</div><div style="font-size:0.66rem;color:var(--muted)">🎉</div></div>
+      <div class="task-acts">
+        <button class="btn-icon btn-edit" onclick="openTaskModal(8,&#39;extra&#39;)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delTask(8)" title="Apagar">🗑️</button>
+      </div>
+    </div>
+    <div class="task-item  extra">
+      <div class="task-check " onclick="toggleTask(9)"></div>
+      <div class="task-info">
+        <div class="task-name-txt" style="">Regar as plantas</div>
+        <div class="task-meta">
+          <span class="task-person-tag" style="background:#d4a843">Lucia</span>
+          <span class="task-badge xbadge">✨ Extra</span>
+        </div>
+      </div>
+      <div style="text-align:right;margin-right:3px"><div class="task-reward-pts">⭐ 10 pts</div><div style="font-size:0.66rem;color:var(--muted)">💶</div></div>
+      <div class="task-acts">
+        <button class="btn-icon btn-edit" onclick="openTaskModal(9,&#39;extra&#39;)" title="Editar">✏️</button>
+        <button class="btn-icon btn-del" onclick="delTask(9)" title="Apagar">🗑️</button>
+      </div>
+    </div></div>
+</div>
+
+<!-- MEALS -->
+<div id="page-meals" class="page">
+  <div class="page-tabs">
+    <button class="page-tab active" onclick="showMealTab(&#39;planner&#39;,this)">📅 Plano Semanal</button>
+    <button class="page-tab" onclick="showMealTab(&#39;list&#39;,this)">📋 Receituário</button>
+  </div>
+  <div id="tab-planner" class="tab-panel active">
+    <div class="section-header">
+      <div><div class="section-title">Plano da Semana</div><div class="section-sub">Planeia os jantares</div></div>
+      <button class="btn-primary" onclick="autoFillWeek()">✨ Preencher semana</button>
+    </div>
+    <div class="week-grid" id="week-grid">
+    <div class="day-card">
+      <div class="day-lbl">Segunda</div>
+      <div class="day-empty">sem plano</div>
+      <button class="btn-day" onclick="openAssign(&#39;seg&#39;,&#39;Segunda&#39;)">+ Escolher</button>
+    </div>
+    <div class="day-card">
+      <div class="day-lbl">Terça</div>
+      <div class="day-empty">sem plano</div>
+      <button class="btn-day" onclick="openAssign(&#39;ter&#39;,&#39;Terça&#39;)">+ Escolher</button>
+    </div>
+    <div class="day-card">
+      <div class="day-lbl">Quarta</div>
+      <div class="day-empty">sem plano</div>
+      <button class="btn-day" onclick="openAssign(&#39;qua&#39;,&#39;Quarta&#39;)">+ Escolher</button>
+    </div>
+    <div class="day-card">
+      <div class="day-lbl">Quinta</div>
+      <div class="day-empty">sem plano</div>
+      <button class="btn-day" onclick="openAssign(&#39;qui&#39;,&#39;Quinta&#39;)">+ Escolher</button>
+    </div>
+    <div class="day-card">
+      <div class="day-lbl">Sexta</div>
+      <div class="day-empty">sem plano</div>
+      <button class="btn-day" onclick="openAssign(&#39;sex&#39;,&#39;Sexta&#39;)">+ Escolher</button>
+    </div>
+    <div class="day-card">
+      <div class="day-lbl">Sábado</div>
+      <div class="day-empty">sem plano</div>
+      <button class="btn-day" onclick="openAssign(&#39;sab&#39;,&#39;Sábado&#39;)">+ Escolher</button>
+    </div>
+    <div class="day-card">
+      <div class="day-lbl">Domingo</div>
+      <div class="day-empty">sem plano</div>
+      <button class="btn-day" onclick="openAssign(&#39;dom&#39;,&#39;Domingo&#39;)">+ Escolher</button>
+    </div></div>
+  </div>
+  <div id="tab-list" class="tab-panel">
+    <div class="section-header">
+      <div><div class="section-title">Receituário</div><div class="section-sub">Refeições favoritas da família</div></div>
+      <button class="btn-primary" onclick="openMealModal()">+ Adicionar</button>
+    </div>
+    <div class="meal-grid" id="meals-list">
+    <div class="meal-card">
+      <button class="meal-del" onclick="delMeal(1)">✕</button>
+      <div class="meal-emoji">🐟</div>
+      <div class="meal-title">Bacalhau à Brás</div>
+      <div class="meal-tags"><span class="meal-tag">peixe</span><span class="meal-tag">tradicional</span></div>
+    </div>
+    <div class="meal-card">
+      <button class="meal-del" onclick="delMeal(2)">✕</button>
+      <div class="meal-emoji">🍗</div>
+      <div class="meal-title">Frango Assado</div>
+      <div class="meal-tags"><span class="meal-tag">forno</span><span class="meal-tag">família</span></div>
+    </div>
+    <div class="meal-card">
+      <button class="meal-del" onclick="delMeal(3)">✕</button>
+      <div class="meal-emoji">🍝</div>
+      <div class="meal-title">Massa à Bolonhesa</div>
+      <div class="meal-tags"><span class="meal-tag">massa</span><span class="meal-tag">rápido</span></div>
+    </div>
+    <div class="meal-card">
+      <button class="meal-del" onclick="delMeal(4)">✕</button>
+      <div class="meal-emoji">🥣</div>
+      <div class="meal-title">Sopa de Legumes</div>
+      <div class="meal-tags"><span class="meal-tag">saudável</span><span class="meal-tag">rápido</span></div>
+    </div>
+    <div class="meal-card">
+      <button class="meal-del" onclick="delMeal(5)">✕</button>
+      <div class="meal-emoji">🍕</div>
+      <div class="meal-title">Pizza Caseira</div>
+      <div class="meal-tags"><span class="meal-tag">fim de semana</span></div>
+    </div>
+    <div class="meal-card">
+      <button class="meal-del" onclick="delMeal(6)">✕</button>
+      <div class="meal-emoji">🦆</div>
+      <div class="meal-title">Arroz de Pato</div>
+      <div class="meal-tags"><span class="meal-tag">forno</span><span class="meal-tag">especial</span></div>
+    </div>
+    <div class="meal-card">
+      <button class="meal-del" onclick="delMeal(7)">✕</button>
+      <div class="meal-emoji">🥩</div>
+      <div class="meal-title">Cozido à Portuguesa</div>
+      <div class="meal-tags"><span class="meal-tag">tradicional</span></div>
+    </div>
+    <div class="meal-card">
+      <button class="meal-del" onclick="delMeal(8)">✕</button>
+      <div class="meal-emoji">🍔</div>
+      <div class="meal-title">Hamburguers Caseiros</div>
+      <div class="meal-tags"><span class="meal-tag">rápido</span><span class="meal-tag">crianças</span></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- REWARDS -->
+<div id="page-rewards" class="page">
+  <div class="section-header">
+    <div><div class="section-title">Recompensas</div><div class="section-sub">Troca pontos por benefícios</div></div>
+    <button class="btn-primary" onclick="openRewardModal(null)">+ Nova recompensa</button>
+  </div>
+  <div class="stats-bar" id="children-pts">
+    <div class="stat-box" style="border-top:3px solid #c8603a">
+      <div class="stat-number" style="color:#c8603a">0</div>
+      <div class="stat-label">pts — Alicia</div>
+    </div>
+    <div class="stat-box" style="border-top:3px solid #6b8f71">
+      <div class="stat-number" style="color:#6b8f71">0</div>
+      <div class="stat-label">pts — Lucas</div>
+    </div>
+    <div class="stat-box" style="border-top:3px solid #d4a843">
+      <div class="stat-number" style="color:#d4a843">0</div>
+      <div class="stat-label">pts — Lucia</div>
+    </div></div>
+  <div class="rewards-grid" id="rewards-list">
+    <div class="reward-card">
+      <div class="reward-icon">💶</div>
+      <div class="reward-info">
+        <div class="reward-name">Mesada extra</div>
+        <div class="reward-desc">2€ de bónus no fim do mês</div>
+        <span class="reward-cost">⭐ 30 pts</span>
+        <div class="reward-acts">
+          <button class="btn-icon btn-edit" onclick="openRewardModal(1)">✏️</button>
+          <button class="btn-icon btn-del" onclick="delReward(1)">🗑️</button>
+        </div>
+      </div>
+    </div>
+    <div class="reward-card">
+      <div class="reward-icon">🎬</div>
+      <div class="reward-info">
+        <div class="reward-name">Cinema</div>
+        <div class="reward-desc">Uma ida ao cinema à escolha</div>
+        <span class="reward-cost">⭐ 80 pts</span>
+        <div class="reward-acts">
+          <button class="btn-icon btn-edit" onclick="openRewardModal(2)">✏️</button>
+          <button class="btn-icon btn-del" onclick="delReward(2)">🗑️</button>
+        </div>
+      </div>
+    </div>
+    <div class="reward-card">
+      <div class="reward-icon">🍽️</div>
+      <div class="reward-info">
+        <div class="reward-name">Jantar fora</div>
+        <div class="reward-desc">Escolha do restaurante</div>
+        <span class="reward-cost">⭐ 100 pts</span>
+        <div class="reward-acts">
+          <button class="btn-icon btn-edit" onclick="openRewardModal(3)">✏️</button>
+          <button class="btn-icon btn-del" onclick="delReward(3)">🗑️</button>
+        </div>
+      </div>
+    </div>
+    <div class="reward-card">
+      <div class="reward-icon">💰</div>
+      <div class="reward-info">
+        <div class="reward-name">Mesada dupla</div>
+        <div class="reward-desc">Dobrar a mesada num mês</div>
+        <span class="reward-cost">⭐ 60 pts</span>
+        <div class="reward-acts">
+          <button class="btn-icon btn-edit" onclick="openRewardModal(4)">✏️</button>
+          <button class="btn-icon btn-del" onclick="delReward(4)">🗑️</button>
+        </div>
+      </div>
+    </div>
+    <div class="reward-card">
+      <div class="reward-icon">🎡</div>
+      <div class="reward-info">
+        <div class="reward-name">Parque de diversões</div>
+        <div class="reward-desc">Visita ao parque temático</div>
+        <span class="reward-cost">⭐ 150 pts</span>
+        <div class="reward-acts">
+          <button class="btn-icon btn-edit" onclick="openRewardModal(5)">✏️</button>
+          <button class="btn-icon btn-del" onclick="delReward(5)">🗑️</button>
+        </div>
+      </div>
+    </div></div>
+</div>
+
+<!-- SETTINGS -->
+<div id="page-settings" class="page">
+  <div class="section-title">Configurações</div>
+  <div class="section-sub">Personaliza a app para a tua família</div>
+
+  <div class="settings-section">
+    <div class="settings-section-title">🏠 Nome da Família</div>
+    <div class="family-name-row">
+      <input type="text" id="fn-input" placeholder="Nome da família">
+      <button class="btn-primary" onclick="saveFamilyName()">Guardar</button>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-section-title">
+      <span>👨‍👩‍👧‍👦 Membros</span>
+      <button class="btn-primary" style="font-size:0.76rem;padding:5px 11px" onclick="openMemberModal(null)">+ Adicionar</button>
+    </div>
+    <div id="cfg-members">
+    <div class="settings-row">
+      <div class="settings-avatar" style="background:#2c3e50">👨</div>
+      <div class="settings-info">
+        <div class="settings-name">Emanuel</div>
+        <div class="settings-detail">Adulto</div>
+      </div>
+      <div class="settings-acts">
+        <button class="btn-icon btn-edit" onclick="openMemberModal(&#39;m1&#39;)">✏️</button>
+        <button class="btn-icon btn-del" onclick="delMember(&#39;m1&#39;)">🗑️</button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div class="settings-avatar" style="background:#8e44ad">👩</div>
+      <div class="settings-info">
+        <div class="settings-name">Carina</div>
+        <div class="settings-detail">Adulto</div>
+      </div>
+      <div class="settings-acts">
+        <button class="btn-icon btn-edit" onclick="openMemberModal(&#39;m2&#39;)">✏️</button>
+        <button class="btn-icon btn-del" onclick="delMember(&#39;m2&#39;)">🗑️</button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div class="settings-avatar" style="background:#c8603a">Al</div>
+      <div class="settings-info">
+        <div class="settings-name">Alicia</div>
+        <div class="settings-detail">Filho/a · 17 anos · ⭐ 0 pts</div>
+      </div>
+      <div class="settings-acts">
+        <button class="btn-icon btn-edit" onclick="openMemberModal(&#39;m3&#39;)">✏️</button>
+        <button class="btn-icon btn-del" onclick="delMember(&#39;m3&#39;)">🗑️</button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div class="settings-avatar" style="background:#6b8f71">Lu</div>
+      <div class="settings-info">
+        <div class="settings-name">Lucas</div>
+        <div class="settings-detail">Filho/a · 13 anos · ⭐ 0 pts</div>
+      </div>
+      <div class="settings-acts">
+        <button class="btn-icon btn-edit" onclick="openMemberModal(&#39;m4&#39;)">✏️</button>
+        <button class="btn-icon btn-del" onclick="delMember(&#39;m4&#39;)">🗑️</button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div class="settings-avatar" style="background:#d4a843">Lc</div>
+      <div class="settings-info">
+        <div class="settings-name">Lucia</div>
+        <div class="settings-detail">Filho/a · 9 anos · ⭐ 0 pts</div>
+      </div>
+      <div class="settings-acts">
+        <button class="btn-icon btn-edit" onclick="openMemberModal(&#39;m5&#39;)">✏️</button>
+        <button class="btn-icon btn-del" onclick="delMember(&#39;m5&#39;)">🗑️</button>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-section-title">
+      <span>⭐ Recompensas</span>
+      <button class="btn-primary" style="font-size:0.76rem;padding:5px 11px" onclick="openRewardModal(null)">+ Adicionar</button>
+    </div>
+    <div id="cfg-rewards">
+    <div class="settings-row">
+      <div style="font-size:1.4rem;width:36px;text-align:center;flex-shrink:0">💶</div>
+      <div class="settings-info">
+        <div class="settings-name">Mesada extra</div>
+        <div class="settings-detail">2€ de bónus no fim do mês · ⭐ 30 pts</div>
+      </div>
+      <div class="settings-acts">
+        <button class="btn-icon btn-edit" onclick="openRewardModal(1)">✏️</button>
+        <button class="btn-icon btn-del" onclick="delReward(1)">🗑️</button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div style="font-size:1.4rem;width:36px;text-align:center;flex-shrink:0">🎬</div>
+      <div class="settings-info">
+        <div class="settings-name">Cinema</div>
+        <div class="settings-detail">Uma ida ao cinema à escolha · ⭐ 80 pts</div>
+      </div>
+      <div class="settings-acts">
+        <button class="btn-icon btn-edit" onclick="openRewardModal(2)">✏️</button>
+        <button class="btn-icon btn-del" onclick="delReward(2)">🗑️</button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div style="font-size:1.4rem;width:36px;text-align:center;flex-shrink:0">🍽️</div>
+      <div class="settings-info">
+        <div class="settings-name">Jantar fora</div>
+        <div class="settings-detail">Escolha do restaurante · ⭐ 100 pts</div>
+      </div>
+      <div class="settings-acts">
+        <button class="btn-icon btn-edit" onclick="openRewardModal(3)">✏️</button>
+        <button class="btn-icon btn-del" onclick="delReward(3)">🗑️</button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div style="font-size:1.4rem;width:36px;text-align:center;flex-shrink:0">💰</div>
+      <div class="settings-info">
+        <div class="settings-name">Mesada dupla</div>
+        <div class="settings-detail">Dobrar a mesada num mês · ⭐ 60 pts</div>
+      </div>
+      <div class="settings-acts">
+        <button class="btn-icon btn-edit" onclick="openRewardModal(4)">✏️</button>
+        <button class="btn-icon btn-del" onclick="delReward(4)">🗑️</button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div style="font-size:1.4rem;width:36px;text-align:center;flex-shrink:0">🎡</div>
+      <div class="settings-info">
+        <div class="settings-name">Parque de diversões</div>
+        <div class="settings-detail">Visita ao parque temático · ⭐ 150 pts</div>
+      </div>
+      <div class="settings-acts">
+        <button class="btn-icon btn-edit" onclick="openRewardModal(5)">✏️</button>
+        <button class="btn-icon btn-del" onclick="delReward(5)">🗑️</button>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-section-title">⚠️ Zona de Perigo</div>
+    <div style="background:white;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);border:1.5px solid #fde8e8">
+      <div style="font-weight:700;color:#c0392b;margin-bottom:5px">Reiniciar todos os dados</div>
+      <div style="font-size:0.8rem;color:var(--muted);margin-bottom:13px">Apaga tarefas, pontos, plano semanal e refeições. Os membros são mantidos.</div>
+      <button class="btn-primary" style="background:#c0392b" onclick="confirmAction(&#39;Reiniciar todos os dados?&#39;,&#39;Tarefas, pontos, plano semanal e refeições serão apagados.&#39;,doReset)">🗑️ Reiniciar dados</button>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- MODALS -->
+
+<!-- MEMBER -->
+<div class="modal-overlay" id="modal-member">
+  <div class="modal">
+    <h3 id="mm-title">👤 Novo Membro</h3>
+    <input type="hidden" id="mm-id">
+    <div class="form-group"><label>Nome</label><input type="text" id="mm-name" placeholder="Ex: Alicia"></div>
+    <div class="form-group"><label>Tipo</label>
+      <select id="mm-role" onchange="mmToggleAge()">
+        <option value="child">Filho/a</option>
+        <option value="adult">Adulto</option>
+      </select>
+    </div>
+    <div class="form-group" id="mm-age-grp"><label>Idade</label><input type="number" id="mm-age" placeholder="Ex: 12" min="1" max="17"></div>
+    <div class="form-group"><label>Emoji / Inicial</label><input type="text" id="mm-emoji" placeholder="A ou 👧" maxlength="2"></div>
+    <div class="form-group"><label>Cor</label><div class="color-row" id="mm-colors"></div></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal(&#39;modal-member&#39;)">Cancelar</button>
+      <button class="btn-save" onclick="saveMember()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TASK -->
+<div class="modal-overlay" id="modal-task">
+  <div class="modal">
+    <h3 id="mt-title">✅ Nova Tarefa</h3>
+    <input type="hidden" id="mt-id">
+    <div class="form-group"><label>Descrição</label><input type="text" id="mt-name" placeholder="Ex: Aspirar a sala"></div>
+    <div class="form-group"><label>Atribuir a</label><select id="mt-person"></select></div>
+    <div class="form-group"><label>Tipo</label>
+      <select id="mt-type" onchange="mtToggleReward()">
+        <option value="fixed">🏠 Tarefa Fixa</option>
+        <option value="extra">✨ Tarefa Extra (com recompensa)</option>
+      </select>
+    </div>
+    <div id="mt-reward-fields" style="display: none;">
+      <div class="form-group"><label>Tipo de recompensa</label>
+        <select id="mt-reward"><option value="money">💶 Dinheiro / Mesada</option><option value="activity">🎉 Atividade especial</option></select>
+      </div>
+      <div class="form-group"><label>Pontos</label><input type="number" id="mt-points" value="10" min="1" max="200"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal(&#39;modal-task&#39;)">Cancelar</button>
+      <button class="btn-save" onclick="saveTask()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MEAL -->
+<div class="modal-overlay" id="modal-meal">
+  <div class="modal">
+    <h3>🍽️ Nova Refeição</h3>
+    <div class="form-group"><label>Nome</label><input type="text" id="mml-name" placeholder="Ex: Bacalhau à Brás"></div>
+    <div class="form-group"><label>Emoji</label><input type="text" id="mml-emoji" placeholder="🍲" maxlength="2"></div>
+    <div class="form-group"><label>Categorias (separadas por vírgula)</label><input type="text" id="mml-tags" placeholder="peixe, forno, rápido"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal(&#39;modal-meal&#39;)">Cancelar</button>
+      <button class="btn-save" onclick="saveMeal()">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ASSIGN MEAL -->
+<div class="modal-overlay" id="modal-assign">
+  <div class="modal">
+    <h3>📅 Escolher Refeição</h3>
+    <div class="form-group"><label>Dia</label><input type="text" id="asgn-day" readonly="" style="background:#f5f5f5"></div>
+    <div class="form-group"><label>Refeição</label><select id="asgn-meal"></select></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal(&#39;modal-assign&#39;)">Cancelar</button>
+      <button class="btn-save" onclick="confirmAssign()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- REWARD -->
+<div class="modal-overlay" id="modal-reward">
+  <div class="modal">
+    <h3 id="mr-title">⭐ Nova Recompensa</h3>
+    <input type="hidden" id="mr-id">
+    <div class="form-group"><label>Nome</label><input type="text" id="mr-name" placeholder="Ex: Cinema"></div>
+    <div class="form-group"><label>Descrição</label><input type="text" id="mr-desc" placeholder="Ex: Uma ida ao cinema"></div>
+    <div class="form-group"><label>Emoji</label><input type="text" id="mr-icon" placeholder="🎬" maxlength="2"></div>
+    <div class="form-group"><label>Pontos necessários</label><input type="number" id="mr-cost" value="50" min="1"></div>
+    <div class="form-group"><label>Tipo</label>
+      <select id="mr-type"><option value="money">💶 Dinheiro</option><option value="activity">🎉 Atividade</option></select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal(&#39;modal-reward&#39;)">Cancelar</button>
+      <button class="btn-save" onclick="saveReward()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM -->
+<div class="modal-overlay" id="modal-confirm">
+  <div class="modal" style="max-width:350px">
+    <h3 id="conf-title">⚠️ Confirmar</h3>
+    <p class="confirm-msg" id="conf-msg"></p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal(&#39;modal-confirm&#39;)">Cancelar</button>
+      <button class="btn-save danger" id="conf-ok">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── PALETTE ───
+const PAL = ['#c8603a','#6b8f71','#d4a843','#4a7fb5','#9b59b6','#e67e22','#16a085','#e74c3c','#2980b9','#1abc9c'];
+
+// ─── DEFAULT STATE ───
+const DEF = {
+  familyName: 'ALLCE',
+  members: [
+    { id: 'm1', name: 'Emanuel', role: 'adult', emoji: '👨', color: '#2c3e50', points: 0 },
+    { id: 'm2', name: 'Carina',  role: 'adult', emoji: '👩', color: '#8e44ad', points: 0 },
+    { id: 'm3', name: 'Alicia',  role: 'child', age: 17, emoji: 'Al', color: '#c8603a', points: 0 },
+    { id: 'm4', name: 'Lucas',   role: 'child', age: 13, emoji: 'Lu', color: '#6b8f71', points: 0 },
+    { id: 'm5', name: 'Lucia',   role: 'child', age: 9,  emoji: 'Lc', color: '#d4a843', points: 0 },
+  ],
+  tasks: [
+    { id:1, name:'Pôr a mesa',        person:'Lucia',   type:'fixed', done:false, points:0,  reward:null },
+    { id:2, name:'Lavar a loiça',     person:'Lucas',   type:'fixed', done:false, points:0,  reward:null },
+    { id:3, name:'Tirar o lixo',      person:'Alicia',  type:'fixed', done:false, points:0,  reward:null },
+    { id:4, name:'Arrumar o quarto',  person:'Lucia',   type:'fixed', done:false, points:0,  reward:null },
+    { id:5, name:'Arrumar o quarto',  person:'Lucas',   type:'fixed', done:false, points:0,  reward:null },
+    { id:6, name:'Arrumar o quarto',  person:'Alicia',  type:'fixed', done:false, points:0,  reward:null },
+    { id:7, name:'Aspirar a sala',    person:'Lucas',   type:'extra', done:false, points:15, reward:'money' },
+    { id:8, name:'Lavar o carro',     person:'Alicia',  type:'extra', done:false, points:25, reward:'activity' },
+    { id:9, name:'Regar as plantas',  person:'Lucia',   type:'extra', done:false, points:10, reward:'money' },
+  ],
+  meals: [
+    { id:1, name:'Bacalhau à Brás',       emoji:'🐟', tags:['peixe','tradicional'] },
+    { id:2, name:'Frango Assado',          emoji:'🍗', tags:['forno','família'] },
+    { id:3, name:'Massa à Bolonhesa',      emoji:'🍝', tags:['massa','rápido'] },
+    { id:4, name:'Sopa de Legumes',        emoji:'🥣', tags:['saudável','rápido'] },
+    { id:5, name:'Pizza Caseira',          emoji:'🍕', tags:['fim de semana'] },
+    { id:6, name:'Arroz de Pato',          emoji:'🦆', tags:['forno','especial'] },
+    { id:7, name:'Cozido à Portuguesa',    emoji:'🥩', tags:['tradicional'] },
+    { id:8, name:'Hamburguers Caseiros',   emoji:'🍔', tags:['rápido','crianças'] },
+  ],
+  weekPlan: { seg:null,ter:null,qua:null,qui:null,sex:null,sab:null,dom:null },
+  rewards: [
+    { id:1, name:'Mesada extra',       desc:'2€ de bónus no fim do mês',        icon:'💶', cost:30,  type:'money'    },
+    { id:2, name:'Cinema',             desc:'Uma ida ao cinema à escolha',       icon:'🎬', cost:80,  type:'activity' },
+    { id:3, name:'Jantar fora',        desc:'Escolha do restaurante',            icon:'🍽️', cost:100, type:'activity' },
+    { id:4, name:'Mesada dupla',       desc:'Dobrar a mesada num mês',           icon:'💰', cost:60,  type:'money'    },
+    { id:5, name:'Parque de diversões',desc:'Visita ao parque temático',         icon:'🎡', cost:150, type:'activity' },
+  ],
+  filter: 'all',
+  assignDay: null,
+  nid: 200,
+};
+
+// ─── LOAD STATE ───
+let S;
+try { S = JSON.parse(localStorage.getItem('caem_v3') || 'null') || JSON.parse(JSON.stringify(DEF)); }
+catch(e) { S = JSON.parse(JSON.stringify(DEF)); }
+
+const save = () => { try { localStorage.setItem('caem_v3', JSON.stringify(S)); } catch(e){} };
+const nid  = () => S.nid++;
+
+// ─── NAV ───
+function showPage(name, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  (btn || document.querySelector(`nav button[onclick="showPage('${name}',this)"]`))?.classList.add('active');
+  renderAll();
+}
+function showMealTab(tab, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.page-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ─── RENDER ALL ───
+function renderAll() {
+  // header
+  const hdr = document.getElementById('hdr-family');
+  if (hdr) hdr.textContent = S.familyName || 'Ordem';
+  renderHome(); renderFamily(); renderTaskFilters(); renderTasks();
+  renderWeek(); renderMeals(); renderRewards(); renderSettings(); renderStats();
+}
+
+// ─── HOME ───
+function renderHome() {
+  const DN = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+  const MN = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  const now = new Date();
+  const dateEl = document.getElementById('today-date');
+  if (dateEl) dateEl.textContent = `${DN[now.getDay()]}, ${now.getDate()} de ${MN[now.getMonth()]} de ${now.getFullYear()}`;
+  const greetEl = document.getElementById('today-greeting');
+  if (greetEl) { const h = now.getHours(); greetEl.textContent = `${h<12?'Bom dia':h<19?'Boa tarde':'Boa noite'}, família ${S.familyName}! 👋`; }
+  const dkeys = ['dom','seg','ter','qua','qui','sex','sab'];
+  const todayEl = document.getElementById('today-dinner');
+  if (todayEl) todayEl.textContent = S.weekPlan[dkeys[now.getDay()]] || '— sem plano —';
+}
+
+function renderFamily() {
+  const g = document.getElementById('family-grid');
+  if (!g) return;
+  g.innerHTML = S.members.map(m => {
+    const tasks = S.tasks.filter(t => t.person === m.name);
+    const done = tasks.filter(t => t.done).length;
+    const pct = tasks.length ? Math.round(done/tasks.length*100) : 0;
+    return `<div class="member-card" style="border-top-color:${m.color}" onclick="jumpToMember('${m.name}')">
+      <div class="member-avatar" style="background:${m.color}">${m.emoji}</div>
+      <div class="member-name">${m.name}</div>
+      <div class="member-role-lbl">${m.role==='child'?(m.age?m.age+' anos':'Filho/a'):'Adulto'}</div>
+      ${m.role==='child'?`
+        <div class="member-points">⭐ ${m.points} pts</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${m.color}"></div></div>
+        <div class="prog-text">${done}/${tasks.length} tarefas</div>
+      `:''}
+    </div>`;
+  }).join('');
+}
+
+function jumpToMember(name) {
+  S.filter = name;
+  showPage('tasks', null);
+}
+
+function renderStats() {
+  const set = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+  set('s-done', S.tasks.filter(t=>t.done).length);
+  set('s-pend', S.tasks.filter(t=>!t.done).length);
+  set('s-pts',  S.members.filter(m=>m.role==='child').reduce((a,m)=>a+m.points,0));
+}
+
+// ─── TASKS ───
+function renderTaskFilters() {
+  const el = document.getElementById('task-filters');
+  if (!el) return;
+  const children = S.members.filter(m => m.role==='child');
+  const filters = [
+    {k:'all',l:'Todas'},{k:'fixed',l:'🏠 Fixas'},{k:'extra',l:'✨ Extras'},
+    ...children.map(c=>({k:c.name,l:c.name}))
+  ];
+  el.innerHTML = filters.map(f =>
+    `<button class="filter-btn ${S.filter===f.k?'active':''}" onclick="setFilter('${f.k}',this)">${f.l}</button>`
+  ).join('');
+}
+
+function setFilter(f, btn) {
+  S.filter = f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderTasks();
+}
+
+function renderTasks() {
+  const el = document.getElementById('tasks-list');
+  if (!el) return;
+  let tasks = [...S.tasks];
+  if (S.filter==='fixed') tasks = tasks.filter(t=>t.type==='fixed');
+  else if (S.filter==='extra') tasks = tasks.filter(t=>t.type==='extra');
+  else if (S.filter!=='all') tasks = tasks.filter(t=>t.person===S.filter);
+  if (!tasks.length) { el.innerHTML=`<div class="empty-state"><div class="ei">📭</div><p>Sem tarefas para este filtro</p></div>`; return; }
+  const mc = n => { const m=S.members.find(x=>x.name===n); return m?m.color:'#aaa'; };
+  el.innerHTML = tasks.map(t => `
+    <div class="task-item ${t.done?'done':''} ${t.type==='extra'?'extra':''}">
+      <div class="task-check ${t.done?'checked':''}" onclick="toggleTask(${t.id})">${t.done?'✓':''}</div>
+      <div class="task-info">
+        <div class="task-name-txt" style="${t.done?'text-decoration:line-through':''}">${t.name}</div>
+        <div class="task-meta">
+          <span class="task-person-tag" style="background:${mc(t.person)}">${t.person}</span>
+          <span class="task-badge ${t.type==='extra'?'xbadge':''}">${t.type==='extra'?'✨ Extra':'🏠 Fixa'}</span>
+        </div>
+      </div>
+      ${t.type==='extra'?`<div style="text-align:right;margin-right:3px"><div class="task-reward-pts">⭐ ${t.points} pts</div><div style="font-size:0.66rem;color:var(--muted)">${t.reward==='money'?'💶':'🎉'}</div></div>`:''}
+      <div class="task-acts">
+        <button class="btn-icon btn-edit" onclick="openTaskModal(${t.id},'${t.type}')" title="Editar">✏️</button>
+        <button class="btn-icon btn-del"  onclick="delTask(${t.id})" title="Apagar">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+function toggleTask(id) {
+  const t = S.tasks.find(x=>x.id===id); if (!t) return;
+  t.done = !t.done;
+  if (t.type==='extra') {
+    const m = S.members.find(x=>x.name===t.person);
+    if (m) { m.points += t.done ? t.points : -t.points; if(m.points<0) m.points=0; }
+  }
+  save(); renderAll();
+  if (t.done) toast(`✅ "${t.name}" concluída!${t.type==='extra'?' +'+t.points+' pts':''}`);
+}
+
+function delTask(id) {
+  confirmAction('Apagar tarefa?','Esta tarefa será removida permanentemente.',()=>{
+    S.tasks = S.tasks.filter(t=>t.id!==id); save(); renderAll(); toast('Tarefa removida');
+  });
+}
+
+// TASK MODAL
+function openTaskModal(id, defType) {
+  const t = id ? S.tasks.find(x=>x.id===id) : null;
+  document.getElementById('mt-title').textContent = t ? '✏️ Editar Tarefa' : '✅ Nova Tarefa';
+  document.getElementById('mt-id').value = id||'';
+  document.getElementById('mt-name').value = t?t.name:'';
+  const pSel = document.getElementById('mt-person');
+  pSel.innerHTML = S.members.map(m=>`<option value="${m.name}" ${t&&t.person===m.name?'selected':''}>${m.name}${m.role==='child'?' (filho/a)':' (adulto)'}</option>`).join('');
+  document.getElementById('mt-type').value = t?t.type:(defType||'extra');
+  mtToggleReward();
+  if (t&&t.type==='extra') { document.getElementById('mt-reward').value=t.reward||'money'; document.getElementById('mt-points').value=t.points||10; }
+  openModal('modal-task');
+}
+function mtToggleReward() {
+  document.getElementById('mt-reward-fields').style.display = document.getElementById('mt-type').value==='extra'?'block':'none';
+}
+function saveTask() {
+  const name = document.getElementById('mt-name').value.trim();
+  if (!name) { toast('Indica o nome!'); return; }
+  const eid = document.getElementById('mt-id').value;
+  const person = document.getElementById('mt-person').value;
+  const type = document.getElementById('mt-type').value;
+  const reward = type==='extra' ? document.getElementById('mt-reward').value : null;
+  const points = type==='extra' ? (parseInt(document.getElementById('mt-points').value)||10) : 0;
+  if (eid) {
+    const t = S.tasks.find(x=>x.id===parseInt(eid));
+    if (t) Object.assign(t, {name,person,type,reward,points});
+    toast('✅ Tarefa atualizada!');
+  } else {
+    S.tasks.push({id:nid(),name,person,type,done:false,points,reward});
+    toast('✅ Tarefa adicionada!');
+  }
+  save(); closeModal('modal-task'); renderAll();
+}
+
+// ─── MEALS ───
+function renderWeek() {
+  const g = document.getElementById('week-grid'); if (!g) return;
+  const days = [{k:'seg',l:'Segunda'},{k:'ter',l:'Terça'},{k:'qua',l:'Quarta'},{k:'qui',l:'Quinta'},{k:'sex',l:'Sexta'},{k:'sab',l:'Sábado'},{k:'dom',l:'Domingo'}];
+  g.innerHTML = days.map(d=>`
+    <div class="day-card">
+      <div class="day-lbl">${d.l}</div>
+      ${S.weekPlan[d.k]?`<div class="day-meal-txt">${S.weekPlan[d.k]}</div>`:`<div class="day-empty">sem plano</div>`}
+      <button class="btn-day" onclick="openAssign('${d.k}','${d.l}')">${S.weekPlan[d.k]?'Alterar':'+ Escolher'}</button>
+    </div>`).join('');
+}
+function renderMeals() {
+  const el = document.getElementById('meals-list'); if (!el) return;
+  if (!S.meals.length) { el.innerHTML=`<div class="empty-state"><div class="ei">🍽️</div><p>Adiciona a primeira refeição!</p></div>`; return; }
+  el.innerHTML = S.meals.map(m=>`
+    <div class="meal-card">
+      <button class="meal-del" onclick="delMeal(${m.id})">✕</button>
+      <div class="meal-emoji">${m.emoji||'🍽️'}</div>
+      <div class="meal-title">${m.name}</div>
+      <div class="meal-tags">${(m.tags||[]).map(t=>`<span class="meal-tag">${t}</span>`).join('')}</div>
+    </div>`).join('');
+}
+function openMealModal() { openModal('modal-meal'); }
+function saveMeal() {
+  const name = document.getElementById('mml-name').value.trim();
+  if (!name) { toast('Indica o nome!'); return; }
+  const emoji = document.getElementById('mml-emoji').value||'🍽️';
+  const tags  = document.getElementById('mml-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+  S.meals.push({id:nid(),name,emoji,tags});
+  save(); closeModal('modal-meal'); renderMeals();
+  ['mml-name','mml-emoji','mml-tags'].forEach(id=>document.getElementById(id).value='');
+  toast('🍽️ Refeição adicionada!');
+}
+function delMeal(id) {
+  confirmAction('Remover refeição?','Esta refeição será removida.',()=>{
+    S.meals=S.meals.filter(m=>m.id!==id); save(); renderMeals(); toast('Refeição removida');
+  });
+}
+function openAssign(dk, dl) {
+  S.assignDay = dk;
+  document.getElementById('asgn-day').value = dl;
+  const sel = document.getElementById('asgn-meal');
+  sel.innerHTML = S.meals.map(m=>`<option value="${m.name}" ${S.weekPlan[dk]===m.name?'selected':''}>${m.emoji} ${m.name}</option>`).join('');
+  openModal('modal-assign');
+}
+function confirmAssign() {
+  S.weekPlan[S.assignDay] = document.getElementById('asgn-meal').value;
+  save(); closeModal('modal-assign'); renderWeek(); renderHome(); toast('📅 Refeição planeada!');
+}
+function autoFillWeek() {
+  const ks=['seg','ter','qua','qui','sex','sab','dom'];
+  const sh=[...S.meals].sort(()=>Math.random()-0.5);
+  ks.forEach((k,i)=>{ S.weekPlan[k]=sh[i%sh.length].name; });
+  save(); renderWeek(); renderHome(); toast('✨ Semana preenchida!');
+}
+
+// ─── REWARDS ───
+function renderRewards() {
+  const cp = document.getElementById('children-pts');
+  if (cp) cp.innerHTML = S.members.filter(m=>m.role==='child').map(c=>`
+    <div class="stat-box" style="border-top:3px solid ${c.color}">
+      <div class="stat-number" style="color:${c.color}">${c.points}</div>
+      <div class="stat-label">pts — ${c.name}</div>
+    </div>`).join('');
+  const rl = document.getElementById('rewards-list'); if (!rl) return;
+  rl.innerHTML = S.rewards.map(r=>`
+    <div class="reward-card">
+      <div class="reward-icon">${r.icon}</div>
+      <div class="reward-info">
+        <div class="reward-name">${r.name}</div>
+        <div class="reward-desc">${r.desc}</div>
+        <span class="reward-cost">⭐ ${r.cost} pts</span>
+        <div class="reward-acts">
+          <button class="btn-icon btn-edit" onclick="openRewardModal(${r.id})">✏️</button>
+          <button class="btn-icon btn-del"  onclick="delReward(${r.id})">🗑️</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function openRewardModal(id) {
+  const r = id?S.rewards.find(x=>x.id===id):null;
+  document.getElementById('mr-title').textContent = r?'✏️ Editar Recompensa':'⭐ Nova Recompensa';
+  document.getElementById('mr-id').value   = id||'';
+  document.getElementById('mr-name').value = r?r.name:'';
+  document.getElementById('mr-desc').value = r?r.desc:'';
+  document.getElementById('mr-icon').value = r?r.icon:'';
+  document.getElementById('mr-cost').value = r?r.cost:50;
+  document.getElementById('mr-type').value = r?r.type:'activity';
+  openModal('modal-reward');
+}
+function saveReward() {
+  const name = document.getElementById('mr-name').value.trim();
+  if (!name) { toast('Indica o nome!'); return; }
+  const eid = document.getElementById('mr-id').value;
+  const data = { name, desc:document.getElementById('mr-desc').value.trim(), icon:document.getElementById('mr-icon').value||'⭐', cost:parseInt(document.getElementById('mr-cost').value)||50, type:document.getElementById('mr-type').value };
+  if (eid) { const r=S.rewards.find(x=>x.id===parseInt(eid)); if(r) Object.assign(r,data); toast('Recompensa atualizada!'); }
+  else { S.rewards.push({id:nid(),...data}); toast('⭐ Recompensa adicionada!'); }
+  save(); closeModal('modal-reward'); renderRewards();
+}
+function delReward(id) {
+  confirmAction('Remover recompensa?','Esta recompensa será apagada.',()=>{
+    S.rewards=S.rewards.filter(r=>r.id!==id); save(); renderRewards(); toast('Recompensa removida');
+  });
+}
+
+// ─── SETTINGS ───
+function renderSettings() {
+  const fnIn = document.getElementById('fn-input');
+  if (fnIn && document.activeElement!==fnIn) fnIn.value = S.familyName;
+
+  const mel = document.getElementById('cfg-members');
+  if (mel) mel.innerHTML = S.members.map(m=>`
+    <div class="settings-row">
+      <div class="settings-avatar" style="background:${m.color}">${m.emoji}</div>
+      <div class="settings-info">
+        <div class="settings-name">${m.name}</div>
+        <div class="settings-detail">${m.role==='child'?`Filho/a · ${m.age||'?'} anos · ⭐ ${m.points} pts`:'Adulto'}</div>
+      </div>
+      <div class="settings-acts">
+        <button class="btn-icon btn-edit" onclick="openMemberModal('${m.id}')">✏️</button>
+        <button class="btn-icon btn-del"  onclick="delMember('${m.id}')">🗑️</button>
+      </div>
+    </div>`).join('');
+
+  const rel = document.getElementById('cfg-rewards');
+  if (rel) rel.innerHTML = S.rewards.map(r=>`
+    <div class="settings-row">
+      <div style="font-size:1.4rem;width:36px;text-align:center;flex-shrink:0">${r.icon}</div>
+      <div class="settings-info">
+        <div class="settings-name">${r.name}</div>
+        <div class="settings-detail">${r.desc} · ⭐ ${r.cost} pts</div>
+      </div>
+      <div class="settings-acts">
+        <button class="btn-icon btn-edit" onclick="openRewardModal(${r.id})">✏️</button>
+        <button class="btn-icon btn-del"  onclick="delReward(${r.id})">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+function saveFamilyName() {
+  const v = document.getElementById('fn-input').value.trim();
+  if (!v) { toast('Indica o nome!'); return; }
+  S.familyName = v; save(); renderAll(); toast(`✅ Nome da família: "${v}"`);
+}
+
+// MEMBER MODAL
+function openMemberModal(id) {
+  const m = id?S.members.find(x=>x.id===id):null;
+  document.getElementById('mm-title').textContent = m?'✏️ Editar Membro':'👤 Novo Membro';
+  document.getElementById('mm-id').value    = id||'';
+  document.getElementById('mm-name').value  = m?m.name:'';
+  document.getElementById('mm-role').value  = m?m.role:'child';
+  document.getElementById('mm-age').value   = m?m.age||'':'';
+  document.getElementById('mm-emoji').value = m?m.emoji:'';
+  mmToggleAge();
+  renderColorPicker(m?m.color:PAL[0]);
+  openModal('modal-member');
+}
+function mmToggleAge() {
+  document.getElementById('mm-age-grp').style.display = document.getElementById('mm-role').value==='child'?'block':'none';
+}
+function renderColorPicker(sel) {
+  document.getElementById('mm-colors').innerHTML = PAL.map(c=>
+    `<div class="c-swatch ${c===sel?'sel':''}" style="background:${c}" onclick="pickColor('${c}',this)"></div>`
+  ).join('');
+}
+function pickColor(c, el) {
+  document.querySelectorAll('.c-swatch').forEach(s=>s.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function getColor() {
+  const s = document.querySelector('#mm-colors .c-swatch.sel');
+  return s ? s.style.background : PAL[0];
+}
+function saveMember() {
+  const name = document.getElementById('mm-name').value.trim();
+  if (!name) { toast('Indica o nome!'); return; }
+  const eid   = document.getElementById('mm-id').value;
+  const role  = document.getElementById('mm-role').value;
+  const age   = role==='child'?(parseInt(document.getElementById('mm-age').value)||null):null;
+  const emoji = document.getElementById('mm-emoji').value.trim()||name.substring(0,2).toUpperCase();
+  const color = getColor();
+  if (eid) {
+    const m = S.members.find(x=>x.id===eid);
+    if (m) {
+      const old = m.name;
+      Object.assign(m,{name,role,age,emoji,color});
+      if (old!==name) S.tasks.forEach(t=>{ if(t.person===old) t.person=name; });
+      toast(`✅ ${name} atualizado!`);
+    }
+  } else {
+    S.members.push({id:'m'+nid(),name,role,age,emoji,color,points:0});
+    toast(`✅ ${name} adicionado/a!`);
+  }
+  save(); closeModal('modal-member'); renderAll();
+}
+function delMember(id) {
+  const m = S.members.find(x=>x.id===id); if (!m) return;
+  confirmAction(`Remover ${m.name}?`,`As tarefas atribuídas a ${m.name} também serão removidas.`,()=>{
+    S.tasks = S.tasks.filter(t=>t.person!==m.name);
+    S.members = S.members.filter(x=>x.id!==id);
+    save(); renderAll(); toast(`${m.name} removido/a`);
+  });
+}
+
+// RESET
+function doReset() {
+  S.tasks=[]; S.weekPlan={seg:null,ter:null,qua:null,qui:null,sex:null,sab:null,dom:null};
+  S.meals=[]; S.rewards=[]; S.members.forEach(m=>m.points=0);
+  save(); renderAll(); toast('✅ Dados reiniciados');
+}
+
+// ─── CONFIRM ───
+function confirmAction(title, msg, fn) {
+  document.getElementById('conf-title').textContent = '⚠️ '+title;
+  document.getElementById('conf-msg').textContent = msg;
+  document.getElementById('conf-ok').onclick = ()=>{ closeModal('modal-confirm'); fn(); };
+  openModal('modal-confirm');
+}
+
+// ─── UTILS ───
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(o=>{
+  o.addEventListener('click',function(e){ if(e.target===this) this.classList.remove('open'); });
+});
+function toast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ─── INIT ───
+mtToggleReward();
+renderAll();
+</script>
+
+
+</body></html>
